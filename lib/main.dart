@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import './question.dart';
+import './quiz.dart';
+import './result.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,48 +13,42 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final _questions = const [
+    {
+      "questionText": "What is your favourite movie?",
+      "answersText": ["Hakim Babu", "Hugo", "Masaan"]
+    },
+    {
+      "questionText": "What is your favourite travel location?",
+      "answersText": ["Chilika", "Kashmir", "Dead sea"]
+    },
+    {
+      "questionText": "What will you become in future?",
+      "answersText": ["Astronaut", "Billionaire", "Happy"]
+    }
+  ];
   var _questionIndex = 0;
   void _answerQuestion() {
     setState(() {
       print("_questionIndex: $_questionIndex");
-      while (_questionIndex < 1) {
-        _questionIndex = _questionIndex + 1;
-      }
+      _questionIndex = _questionIndex + 1;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    var questions = [
-      "What is your favourite movie?",
-      "What is your favourite travel location?",
-    ];
     print("_questionIndex:-> $_questionIndex");
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: Text("My first Flutter App"),
         ),
-        body: Column(
-          children: [
-            Question(questions[_questionIndex]),
-            RaisedButton(
-              onPressed: _answerQuestion,
-              child: Text("Answer 1"),
-            ),
-            RaisedButton(
-              onPressed: () => print("Answer 2 is chosen."),
-              child: Text("Answer 2"),
-            ),
-            RaisedButton(
-              onPressed: () => {
-                //
-                print("Answer 3 has been chosen.")
-              },
-              child: Text("Answer 3"),
-            ),
-          ],
-        ),
+        body: _questionIndex < _questions.length
+            ? Quiz(
+                questions: _questions,
+                answerQuestion: _answerQuestion,
+                questionIndex: _questionIndex)
+            : Result()
       ),
     );
   }
