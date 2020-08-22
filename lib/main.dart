@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
 
-// void main() {
-//   runApp(MyApp());
-// }
+import './question.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return MyAppState();
+    return _MyAppState();
   }
 }
 
-class MyAppState extends State<MyApp> {
-  var questionIndex = 0;
-  void answerQuestion() {
+class _MyAppState extends State<MyApp> {
+  var _questionIndex = 0;
+  void _answerQuestion() {
     setState(() {
-      print("questionIndex: $questionIndex");
-      while (questionIndex < 1) {
-        questionIndex = questionIndex + 1;
+      print("_questionIndex: $_questionIndex");
+      while (_questionIndex < 1) {
+        _questionIndex = _questionIndex + 1;
       }
     });
   }
@@ -29,7 +28,7 @@ class MyAppState extends State<MyApp> {
       "What is your favourite movie?",
       "What is your favourite travel location?",
     ];
-    print("questionIndex:-> $questionIndex");
+    print("_questionIndex:-> $_questionIndex");
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -37,9 +36,9 @@ class MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: [
-            Text(questions[questionIndex]),
+            Question(questions[_questionIndex]),
             RaisedButton(
-              onPressed: answerQuestion,
+              onPressed: _answerQuestion,
               child: Text("Answer 1"),
             ),
             RaisedButton(
